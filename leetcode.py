@@ -10,6 +10,7 @@ class ListNode:
             print(printval.val)
             printval = printval.next
 
+# -------------------------------------------------------
 # Two sum:
 def two_sum(nums, target):
     for i in range(len(nums)):
@@ -24,7 +25,6 @@ assert(two_sum(sum_array, 14)) == [2,3]
 assert(two_sum(sum_array, 17)) == None
 
 # -------------------------------------------------------
-
 # Adding Two Numbers:
 def add_two_numbers(l1, l2):
     dummy = ListNode(None)
@@ -59,7 +59,47 @@ l2_n3 = ListNode(4)
 l2_n1.next = l2_n2
 l2_n2.next = l2_n3
 
+# Testing:
 answer = add_two_numbers(l1_n1, l2_n1)
 answer.listprint()
 
 # -------------------------------------------------------
+# Longest substring without repeating characters
+
+def length_of_longest_substring(s):
+    current_string = ''
+    longest = ''
+    for i in range(len(s)):
+        for char in s[i:]:
+            if char not in current_string:
+                current_string += char
+                if len(longest) < len(current_string):
+                    longest = current_string
+            else:
+                current_string = ""
+                break
+    return len(longest)
+
+# Testing:
+assert(length_of_longest_substring("abcabcbb")) == 3
+assert(length_of_longest_substring("bbbbb")) == 1
+assert(length_of_longest_substring("pwwkew")) == 3
+
+# -------------------------------------------------------
+# Reverse Integer:
+def reverse(x):
+    pop = 0
+    rev = 0
+    neg = x < 0
+    if neg:
+        x = -x
+    while x != 0:
+        pop = x % 10
+        x = x // 10
+        rev = rev * 10 + pop
+    if neg:
+        return -rev
+    return rev
+
+assert(reverse(-123)) == -321
+assert(reverse(5142)) == 2415
