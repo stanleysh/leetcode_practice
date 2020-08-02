@@ -67,18 +67,16 @@ answer.listprint()
 # Longest substring without repeating characters
 
 def length_of_longest_substring(s):
-    current_string = ''
-    longest = ''
+    letter_dict = {}
+    j = 0
+    max_length = 0
     for i in range(len(s)):
-        for char in s[i:]:
-            if char not in current_string:
-                current_string += char
-                if len(longest) < len(current_string):
-                    longest = current_string
-            else:
-                current_string = ""
-                break
-    return len(longest)
+        if s[i] in letter_dict and j < letter_dict[s[i]] + 1:
+            j = letter_dict[s[i]] + 1
+        letter_dict[s[i]] = i
+        max_length = max(max_length, i - j + 1)
+
+    return max_length
 
 # Testing:
 assert(length_of_longest_substring("abcabcbb")) == 3
@@ -103,3 +101,30 @@ def reverse(x):
 
 assert(reverse(-123)) == -321
 assert(reverse(5142)) == 2415
+
+# -------------------------------------------------------
+# Interview camp questions:
+# Sort subarray to sort whole array:
+
+def sortSub(nums):
+    start = 0
+    end = 0
+    for i in range(len(nums) - 1):
+        if nums[i] == nums[i + 1] - 1:
+            continue
+        else:
+            start = i + 1
+            break
+
+    for j in range(len(nums) - 1, 1, -1):
+        if nums[j] == nums[j - 1] + 1:
+            continue
+        else:
+            end = j - 1
+            break
+    
+    return nums[start: end + 1]
+        
+assert(sortSub([1,2,4,5,3,5,6,7])) == [4,5,3]
+assert(sortSub([1,3,5,2,6,4,7,8,9])) == [3,5,2,6,4]
+
