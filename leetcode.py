@@ -128,3 +128,21 @@ def sortSub(nums):
 assert(sortSub([1,2,4,5,3,5,6,7])) == [4,5,3]
 assert(sortSub([1,3,5,2,6,4,7,8,9])) == [3,5,2,6,4]
 
+# -------------------------------------------------------
+# Dutch natinal flag problem
+def dutchNationalFlag(nums, pivot):
+    boundary = 0
+    end_boundary = len(nums) -1
+    i = 0
+    while i <= end_boundary:
+        if nums[i] < pivot:
+            nums[boundary], nums[i] = nums[i], nums[boundary]
+            boundary += 1
+        elif nums[i] > pivot:
+            nums[end_boundary], nums[i] = nums[i], nums[end_boundary]
+            end_boundary -= 1
+        i += 1
+    
+    return nums
+
+print(dutchNationalFlag([5,2,4,4,6,4,4,3], 4))
