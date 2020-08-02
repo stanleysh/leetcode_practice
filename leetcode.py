@@ -200,3 +200,53 @@ def kadanesIndicies(nums):
 
 assert(kadanesIndicies([-2,-3,4,-1,-2,1,5,-1])) == (2,6)
 assert(kadanesIndicies([1,2,-1,2,-3,2,-5])) == (0,3) 
+
+# -------------------------------------------------------
+# Sliding window, find subarray that sums ot target with sliding window
+def slidingWindow(nums, target):
+    start = 0
+    end = 1
+    while end < len(nums) + 1:
+        if sum(nums[start:end]) < target:
+            end += 1
+        elif sum(nums[start:end]) > target:
+            start += 1
+        elif sum(nums[start:end]) == target:
+            return nums[start:end]
+
+assert(slidingWindow([5,3,1,7,6,4,2,3], 15)) == [6,4,2,3]
+assert(slidingWindow([1,2,3,5,2], 8)) == [3,5]
+
+# -------------------------------------------------------
+# Given a string, find the longest substring with unique characters
+def uniqueSubstring(s):
+    i = 0
+    j = 1
+    start = 0
+    end = 0
+    while j < len(s):
+        if s[j] not in s[i:j]:
+            j += 1
+        elif s[j] in s[i:j]:
+            i += 1
+        if j - i + 1 > end - start + 1:
+            start = i
+            end = j - 1
+    return s[start:end + 1]
+        
+assert(uniqueSubstring('whatwhywher')) == 'ywher'
+
+
+# Solved with dictionary, only looking for length not the actual string
+def uniqueSubstringDict(s):
+    letters_dict = {}
+    j = 0
+    max_length = 0
+    for i in range(len(s)):
+        if s[i] in letters_dict and j < letters_dict[s[i]] + 1:
+            j = letters_dict[s[i]] + 1
+        letters_dict[s[i]] = i
+        max_length = max(max_length, i - j + 1)
+    return max_length
+
+assert(uniqueSubstringDict('whatwhywhere')) == 5
