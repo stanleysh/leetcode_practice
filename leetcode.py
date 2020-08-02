@@ -236,7 +236,8 @@ def uniqueSubstring(s):
         
 assert(uniqueSubstring('whatwhywher')) == 'ywher'
 
-
+# -------------------------------------------------------
+# Leetcode question, also appears in interview camp
 # Solved with dictionary, only looking for length not the actual string
 def uniqueSubstringDict(s):
     letters_dict = {}
@@ -250,3 +251,22 @@ def uniqueSubstringDict(s):
     return max_length
 
 assert(uniqueSubstringDict('whatwhywhere')) == 5
+
+# -------------------------------------------------------
+# Prefix sums
+def prefixSum(nums):
+    sum_dict = {}
+    start = 0
+    end = 0
+    current_sum = 0
+    for i in range(len(nums)):
+        current_sum += nums[i]
+        if current_sum in sum_dict:
+            start = sum_dict[current_sum] + 1
+            end = i
+            break
+        sum_dict[current_sum] = i
+    
+    return nums[start:end + 1]
+
+assert(prefixSum([2,4,-2,1,-3,5,-3])) == [4,-2,1,-3]
