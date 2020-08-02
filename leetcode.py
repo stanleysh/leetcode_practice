@@ -138,11 +138,65 @@ def dutchNationalFlag(nums, pivot):
         if nums[i] < pivot:
             nums[boundary], nums[i] = nums[i], nums[boundary]
             boundary += 1
+            i += 1
         elif nums[i] > pivot:
             nums[end_boundary], nums[i] = nums[i], nums[end_boundary]
             end_boundary -= 1
-        i += 1
+        else:
+            i += 1
     
     return nums
 
-print(dutchNationalFlag([5,2,4,4,6,4,4,3], 4))
+assert(dutchNationalFlag([5,2,4,4,6,4,4,3], 4)) == [3, 2, 4, 4, 4, 4, 6, 5]
+
+# -------------------------------------------------------
+# Red white blue marbles: sort array so that red -> white -> blue
+def redWhiteBlue(marbles):
+    red_boundary = 0
+    blue_boundary = len(marbles) - 1
+    i = 0
+    while i <= blue_boundary:
+        if marbles[i] < 1:
+            marbles[red_boundary], marbles[i] = marbles[i], marbles[red_boundary]
+            red_boundary += 1
+            i += 1
+        elif marbles[i] > 1:
+            marbles[blue_boundary], marbles[i] = marbles[i], marbles[blue_boundary]
+            blue_boundary -= 1
+        else:
+            i += 1
+    return marbles
+
+assert(redWhiteBlue([0,2,1,2,0,1,2,0,1,2,1,2,1,0])) == [0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+
+# -------------------------------------------------------
+# Kadane's algorithm, find max sum of subarray of an array
+def kadanes(nums):
+    result = nums[0]
+    max_end_result = nums[0]
+    for i in range(1, len(nums)):
+        max_end_result = max(nums[i], max_end_result + nums[i])
+        result = max(result, max_end_result)
+    return result
+
+assert(kadanes([-2,-3,4,-1,-2,1,5,-1])) == 7
+
+# -------------------------------------------------------
+# kadane's but return the indicies and not the result number
+def kadanesIndicies(nums):
+    result = nums[0]
+    max_end_result = nums[0]
+    start = 0
+    end = 0
+    for i in range(1, len(nums)):
+        max_end_result = max(nums[i], max_end_result + nums[i])
+        if max_end_result == nums[i]:
+            start = i
+        if max_end_result > result:
+            result = max_end_result
+            end = i
+        
+    return (start, end)
+
+assert(kadanesIndicies([-2,-3,4,-1,-2,1,5,-1])) == (2,6)
+assert(kadanesIndicies([1,2,-1,2,-3,2,-5])) == (0,3) 
