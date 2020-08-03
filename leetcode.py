@@ -507,7 +507,23 @@ y.enqueue(1)
 y.enqueue(2)
 y.enqueue(3)
 print(y.dequeue())
-print(y)
+print(y.s2)
 
 # -------------------------------------------------------
-# 
+# longest increasing subsequence
+def longestIncreasingSubsequence(nums):
+    if len(nums) == 0:
+        return 0
+
+    longest = [0] * len(nums)
+    result = 1
+    for i in range(len(nums)):
+        longest[i] = 1
+        for j in range(0, i):
+            if (nums[j] < nums[i]):
+                longest[i] = max(longest[i], longest[j] + 1)
+
+        result = max(result, longest[i])
+    return result
+
+print(longestIncreasingSubsequence([1,3,2,5,3,5,6]))
