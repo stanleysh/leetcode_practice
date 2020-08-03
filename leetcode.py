@@ -489,6 +489,11 @@ class Queue:
         self.s1 = []
         self.s2 = []
 
+    def __str__(self):
+        if not self.s2:
+            self.flushToS2()
+        return str(self.s2)
+
     def enqueue(self, a):
         self.s1.append(a)        
 
@@ -506,8 +511,8 @@ y = Queue()
 y.enqueue(1)
 y.enqueue(2)
 y.enqueue(3)
-print(y.dequeue())
-print(y.s2)
+# print(y.dequeue())
+print(y)
 
 # -------------------------------------------------------
 # longest increasing subsequence
