@@ -270,3 +270,157 @@ def prefixSum(nums):
     return nums[start:end + 1]
 
 assert(prefixSum([2,4,-2,1,-3,5,-3])) == [4,-2,1,-3]
+
+def prefixSumWithTarget(nums, target):
+    sum_dict = {}
+    start = 0
+    end = 0
+    current_sum = 0
+    for i in range(len(nums)):
+        current_sum += nums[i]
+        if current_sum == target:
+            return nums[0:i + 1]
+        if (current_sum - target) in sum_dict:
+            start = sum_dict[current_sum - target] + 1
+            end = i
+            break
+        sum_dict[current_sum] = i
+    
+    return nums[start:end + 1]
+
+assert(prefixSumWithTarget([2,4,-2,1,-3,5,-3], 5)) == [2,4,-2,1]
+assert(prefixSumWithTarget([2,4,-2,1,-3,5,-3], 3)) == [4,-2,1]
+
+# -------------------------------------------------------
+# Binary search
+def binarySearch(nums, target):
+    low = 0
+    high = len(nums) - 1
+    while low <= high:
+        mid = low + (high - low) // 2
+        if nums[mid] > target:
+            high = mid - 1
+        elif nums[mid] < target:
+            low = mid + 1
+        else:
+            return mid
+    
+    return -1
+
+assert(binarySearch([1,2,4,7,8.9], 2)) == 1
+
+def binarySearchDup(nums, target):
+    low = 0
+    high = len(nums) - 1
+    while low <= high:
+        mid = low + (high - low) // 2
+        if nums[mid] > target or (nums[mid] == target and mid > 0 and nums[mid-1] == target):
+            high = mid - 1
+        elif nums[mid] < target:
+            low = mid + 1
+        else:
+            return mid
+    
+    return -1
+
+assert(binarySearchDup([1,1,2,2,2,3,4,5,6], 2)) == 2
+
+# -------------------------------------------------------
+# Binary search closest (number doesn't exist but we find the two closest indicies)
+def binarySearchClosest(nums, target):
+    low = 0
+    high = len(nums) - 1
+    low_close = 0
+    high_close = len(nums) - 1
+    while low <= high:
+        mid = low + (high - low) // 2
+        if nums[mid] > target:
+            high = mid - 1
+            high_close = high
+        elif nums[mid] < target:
+            low = mid + 1
+            low_close = low
+        else:
+            return mid
+    
+    return high_close
+
+assert(binarySearchClosest([1,1,2,2,2,5,5,6], 4)) == 4
+
+
+# -------------------------------------------------------
+# Combination with length x
+def array_combos(nums, x):
+    if nums is None or len(nums) == 0 or x > len(nums):
+        return
+
+    def addComboHelper(buffer, startIndex, bufferIndex):
+        if bufferIndex == len(buffer):
+            output.append(buffer[:])
+            return
+
+        if startIndex == len(nums):
+            return
+
+        for i in range(startIndex, len(nums)):
+            buffer[bufferIndex] = nums[i]
+            addComboHelper(buffer, i + 1, bufferIndex + 1)
+        
+
+    output = []
+    addComboHelper([0]*x, 0, 0)
+    return output
+    
+assert(array_combos([1,2,3,4,5], 3)) == [[1, 2, 3], [1, 2, 4], [1, 2, 5], [1, 3, 4], [1, 3, 5], [1, 4, 5], [2, 3, 4], [2, 3, 5], [2, 4, 5], [3, 4, 5]]
+
+# -------------------------------------------------------
+# Combinations of phone number
+def phone_number(digits):
+    phone = {'2': ['a', 'b', 'c'],
+                 '3': ['d', 'e', 'f'],
+                 '4': ['g', 'h', 'i'],
+                 '5': ['j', 'k', 'l'],
+                 '6': ['m', 'n', 'o'],
+                 '7': ['p', 'q', 'r', 's'],
+                 '8': ['t', 'u', 'v'],
+                 '9': ['w', 'x', 'y', 'z']}
+    
+    def add_combo(current, current_digits):
+        if current_digits == '' or len(current_digits) == 0:
+            output.append(current)
+            return
+        
+        for letter in phone[current_digits[0]]:
+            add_combo(current + letter, current_digits[1:])
+
+        return
+
+    output = []
+    add_combo('', digits)
+    return output
+
+assert(phone_number('23')) == ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']
+
+# -------------------------------------------------------
+# Target amount using combos
+def combo_target(nums, target):
+
+    def add_num(current_combo, index):
+        if sum(current_combo) == target:
+            output.append(current_combo[:])
+            return
+        
+        if sum(current_combo) > target:
+            return
+
+        for i in range(index, len(nums)):
+            current_combo.append(nums[i])
+            add_num(current_combo, i)
+            current_combo.pop()
+
+    
+    output = []
+    add_num([], 0)
+    return output
+
+assert(combo_target([1,2,5], 5))  == [[1, 1, 1, 1, 1], [1, 1, 1, 2], [1, 2, 2], [5]]
