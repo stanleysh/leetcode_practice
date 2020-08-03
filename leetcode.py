@@ -424,3 +424,90 @@ def combo_target(nums, target):
     return output
 
 assert(combo_target([1,2,5], 5))  == [[1, 1, 1, 1, 1], [1, 1, 1, 2], [1, 2, 2], [5]]
+
+
+# -------------------------------------------------------
+# Backtracking max problem
+'''
+def doesPathExists(maze):
+    if len(maze) == 0 or maze is None:
+        return False
+
+    memo = [[0] * len(maze[0])] * len(maze)
+    return pathExists(maze, 0, 0, memo)
+
+def pathExists(maze, i, j, memo):
+    if oob(maze, i, j) or a[i][j] == 1:
+        return False
+
+    if i == len(maze) - 1 and j == len(maze[0] -1):
+        return True
+
+    
+
+def outOfBounds(maze, i, j):
+    return i < 0 or i  >= len(maze) or j < 0 or j >= len(maze[0])
+
+doesPathExists([[0,0,0,0],[0,0,0,0],[0,0,0,0]])
+'''
+
+# -------------------------------------------------------
+# Stack with max and a 0(1)
+class StackWithMax:
+    def __init__(self):
+        self.main = []
+        self.max_stack = []
+    
+    def push(self, a):
+        self.main.append(a)
+        if len(self.max_stack) == 0:
+            self.max_stack.append(a)
+            return
+        if (a > self.max_stack[-1]):
+            self.max_stack.append(a)
+        else:
+            self.max_stack.append(self.max_stack[-1])
+
+    def getMax(self):
+        return self.max_stack[-1]
+    
+    def pop(self):
+        self.main.pop()
+        self.max_stack.pop()
+
+
+x = StackWithMax()
+x.push(5)
+x.push(1)
+x.push(8)
+print(x.getMax())
+
+# -------------------------------------------------------
+# Queue with two stacks
+class Queue:
+    def __init__(self):
+        self.s1 = []
+        self.s2 = []
+
+    def enqueue(self, a):
+        self.s1.append(a)        
+
+    def dequeue(self):
+        if len(self.s2) == 0:
+            self.flushToS2()
+
+        return self.s2.pop()
+
+    def flushToS2(self):
+        while self.s1:
+            self.s2.append(self.s1.pop())
+
+y = Queue()
+y.enqueue(1)
+y.enqueue(2)
+y.enqueue(3)
+print(y.dequeue())
+print(y)
+
+# -------------------------------------------------------
+# 
