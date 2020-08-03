@@ -247,13 +247,16 @@ def uniqueSubstringDict(s):
         if s[i] in letters_dict and j < letters_dict[s[i]] + 1:
             j = letters_dict[s[i]] + 1
         letters_dict[s[i]] = i
-        max_length = max(max_length, i - j + 1)
-    return max_length
+        if max_length < i -j + 1:
+            start = j
+            end = i
+            max_length = i - j + 1
+    return s[start:end + 1]
 
-assert(uniqueSubstringDict('whatwhywhere')) == 5
+print(uniqueSubstringDict('whatwhywhere'))
 
 # -------------------------------------------------------
-# Prefix sums
+# Prefix sums, finds part of array that gives 0
 def prefixSum(nums):
     sum_dict = {}
     start = 0
