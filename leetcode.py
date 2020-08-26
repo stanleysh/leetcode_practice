@@ -637,3 +637,22 @@ def isValid(s):
             stack.append(c)
         
     return not stack
+
+# -------------------------------------------------------
+#22 Generate Parentheses
+def generateParenthesis(n):
+    
+    def addBrackets(current, left, right):
+        if len(current) == n * 2:
+            results.append(current)
+            return
+        
+        if left < n:    
+            addBrackets(current + "(", left + 1, right)
+            
+        if right < left:
+            addBrackets(current + ')', left, right + 1)
+
+    results = []
+    addBrackets('', 0, 0)
+    return results
