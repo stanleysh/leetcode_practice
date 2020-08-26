@@ -535,3 +535,30 @@ def longestIncreasingSubsequence(nums):
     return result
 
 print(longestIncreasingSubsequence([1,3,2,5,3,5,6]))
+
+# -------------------------------------------------------
+#46 Permutations
+def permute(nums): 
+    if not nums:
+        return []
+    
+    def add_num(current_array):
+        if current_array and len(current_array) == len(nums):
+            output.append(current_array[:])
+            return
+        
+        for num in nums:
+            if current_array:
+                if num in current_array:
+                    continue
+            current.append(num)
+            add_num(current)
+            current.pop()
+    
+    output = []
+    current = []
+    add_num(current)
+    return output
+
+# -------------------------------------------------------
+# 47 Permutations 2
