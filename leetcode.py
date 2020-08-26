@@ -587,3 +587,18 @@ def permuteUnique(nums):
     add_nums([], nums)
     return output
 
+# -------------------------------------------------------
+#11 Container with most water 
+def max_area_container(height):
+    max_area = 0
+    i = 0
+    j = len(height) - 1
+    while i < j:
+        shortest = min(height[i], height[j])
+        current_area = shortest * (j - i)
+        max_area = max(max_area, current_area)
+        if height[i] <= height[j]:
+            i += 1
+        else:
+            j -= 1
+    return max_area
