@@ -604,6 +604,24 @@ def max_area_container(height):
     return max_area
 
 # -------------------------------------------------------
+#19 Remove nth node from end of list
+def removeNthNode(head, n):
+    dummy = ListNode(0)
+    dummy.next = head
+    current = head
+    runner = head
+    while n >= 0:
+        runner = runner.next
+        n -= 1
+    
+    while runner:
+        current = current.next
+        runner = runner.next
+
+    current.next = current.next.next
+    return dummy.next
+
+# -------------------------------------------------------
 #20 Valid Parenthesis 
 def isValid(s):
     mapping = {')': '(', '}': '{',']': '['}
