@@ -656,3 +656,22 @@ def generateParenthesis(n):
     results = []
     addBrackets('', 0, 0)
     return results
+
+# -------------------------------------------------------
+# 24 Swap nodes in pairs
+def swapPairs(head):
+    current_node = head
+    if not current_node:
+        return head
+    elif not current_node.next:
+        return head
+    while current_node:
+        if current_node.next:
+            temp_val = current_node.next.val
+            current_node.next.val = current_node.val
+            current_node.val = temp_val
+            current_node = current_node.next.next
+        else:
+            return head
+    return head
+
