@@ -602,3 +602,20 @@ def max_area_container(height):
         else:
             j -= 1
     return max_area
+
+# -------------------------------------------------------
+#20 Valid Parenthesis 
+def isValid(s):
+    mapping = {')': '(', '}': '{',']': '['}
+    stack = []
+    for c in s:
+        if c in mapping:
+            if stack:
+                if stack.pop() != mapping[c]:
+                    return False
+            else:
+                return False
+        else:
+            stack.append(c)
+        
+    return not stack
