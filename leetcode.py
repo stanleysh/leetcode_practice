@@ -562,3 +562,28 @@ def permute(nums):
 
 # -------------------------------------------------------
 # 47 Permutations 2
+def permuteUnique(nums):
+    if not nums:
+        return []
+    
+    def add_nums(current_array, current_nums):
+        if current_array and len(current_array) == len(nums):
+            if current_array not in output:
+                output.append(current_array[:])
+                return
+            else:
+                return
+                            
+        for i in range(len(current_nums)):
+            current_array.append(current_nums[i])
+            if i + 1 == len(current_nums):
+                nums_left = current_nums[0:i]
+            else:
+                nums_left = current_nums[:i] + current_nums[i + 1:]
+            add_nums(current_array, nums_left)
+            current_array.pop()
+        
+    output = []
+    add_nums([], nums)
+    return output
+
