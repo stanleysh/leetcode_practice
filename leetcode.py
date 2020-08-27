@@ -170,7 +170,8 @@ def redWhiteBlue(marbles):
 assert(redWhiteBlue([0,2,1,2,0,1,2,0,1,2,1,2,1,0])) == [0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
 
 # -------------------------------------------------------
-# Kadane's algorithm, find max sum of subarray of an array
+# Kadane's algorithm, find max sum of subarray of an array 
+# Also number 53 on leetcode
 def kadanes(nums):
     result = nums[0]
     max_end_result = nums[0]
@@ -674,4 +675,22 @@ def swapPairs(head):
         else:
             return head
     return head
+
+# -------------------------------------------------------
+# 77 combinations given n and k
+def combine(n, k):
+    def addNum(current_combo, num):
+        if len(current_combo) == k:
+            output.append(current_combo[:])
+            return
+        
+        for i in range(num, n + 1):
+            current_combo.append(i)
+            addNum(current_combo, i + 1)
+            current_combo.pop()
+            
+    output = []
+    current = []
+    addNum(current, 1)
+    return output
 
