@@ -32,3 +32,17 @@ function AddTwoNums(l1, l2) {
     
     return s.next;
 }
+
+// Questions 3, Longest substring without repeating character
+function LongestSubstring(string) {
+    let letters_dict = {};
+    let longest = 0;
+    let j = 0;
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] in letters_dict && j < letters_dict[s[i]] + 1)
+            j = letters_dict[s[i]] + 1
+        letters_dict[s[i]] = i;
+        longest = Math.max(longest, i - j + 1);
+    };
+    return longest;
+}
