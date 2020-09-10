@@ -33,7 +33,7 @@ function AddTwoNums(l1, l2) {
     return s.next;
 }
 
-// Questions 3, Longest substring without repeating character
+// Question 3, Longest substring without repeating character
 function LongestSubstring(string) {
     let letters_dict = {};
     let longest = 0;
@@ -46,3 +46,34 @@ function LongestSubstring(string) {
     };
     return longest;
 }
+
+// Question 5, Longest palindromic substring
+ function LongestPalindromicSubstring(string) {
+    if (!s) 
+        return "";
+    let start = 0;
+    let end = 0;
+    let longest = 0;
+    for (let i = 0; i < s.length; i++) {
+        let odd_length = expand(s, i, i);
+        let even_length = expand(s, i, i + 1);
+        let current_longest = Math.max(odd_length, even_length);
+        if (current_longest > longest) {
+            longest = current_longest;
+            start = i - (Math.floor((current_longest -1) / 2));
+            end = i + Math.floor(current_longest / 2) ;
+        }
+    }
+
+    function expand(string, left, right) {
+        let l = left;
+        let r = right;
+        while (l >= 0 && r < string.length && (string[l] == string[r])) {
+            l -= 1;
+            r += 1;
+        };
+        return r - l - 1;
+    };
+
+    return s.slice(start, end + 1);
+ }
