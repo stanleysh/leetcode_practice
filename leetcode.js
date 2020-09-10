@@ -77,3 +77,31 @@ function LongestSubstring(string) {
 
     return s.slice(start, end + 1);
  }
+ 
+//  Question 17, combinations of a phone
+function PhoneCombination(string) {
+    const phone = 
+    {   '2': ['a', 'b', 'c'], '3':['d','e','f'], 
+        '4': ['g', 'h', 'i'], '5': ['j', 'k', 'l'], 
+        '6':['m','n','o'], '7':['p','q','r','s'],
+        '8':['t', 'u', 'v'], '9': ['w','x','y','z']
+    };
+
+    if (!digits)
+        return [];
+
+    function add_current_num(current_combo, rem_digits) {
+        if (!rem_digits) {
+        output.push(current_combo);
+        return;
+        };
+
+        phone[rem_digits[0]].forEach(letter => {
+            add_current_num(current_combo + letter, rem_digits.slice(1, rem_digits.length));
+        });
+    };
+
+    let output = [];
+    add_current_num("", digits);
+    return output;
+}
