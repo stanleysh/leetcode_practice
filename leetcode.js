@@ -34,7 +34,7 @@ function AddTwoNums(l1, l2) {
 }
 
 // Question 3, Longest substring without repeating character
-function LongestSubstring(string) {
+function LongestSubstring(s) {
     let letters_dict = {};
     let longest = 0;
     let j = 0;
@@ -48,7 +48,7 @@ function LongestSubstring(string) {
 }
 
 // Question 5, Longest palindromic substring
- function LongestPalindromicSubstring(string) {
+ function LongestPalindromicSubstring(s) {
     if (!s) 
         return "";
     let start = 0;
@@ -77,9 +77,29 @@ function LongestSubstring(string) {
 
     return s.slice(start, end + 1);
  }
+
+//  Question 11, Container with most water
+function WaterContainer(height) {
+    let i = 0;
+    let j = height.length - 1;
+    let largest_area = 0;
+    let current_shortest = 0;
+    let current_area = 0
+    while (i < j) {
+        current_shortest = Math.min(height[i], height[j]);
+        current_area = (j - i) * current_shortest;
+        largest_area = Math.max(current_area, largest_area);
+        if (height[i] <= height[j])
+            i += 1;
+        else
+            j -= 1;
+    };
+    return largest_area;
+}
+
  
 //  Question 17, combinations of a phone
-function PhoneCombination(string) {
+function PhoneCombination(digits) {
     const phone = 
     {   '2': ['a', 'b', 'c'], '3':['d','e','f'], 
         '4': ['g', 'h', 'i'], '5': ['j', 'k', 'l'], 
