@@ -144,3 +144,29 @@ function ValidParenthesis(s) {
     }
     return (stack.length == 0)
 }
+
+// Question 22, Generate Parenthesis
+function GenerateParenthesis(n) {
+    if (n <= 0) {
+        return []
+    }
+    
+    function addCombo(currentCombo, left, right) {
+        if (currentCombo.length === n*2) {
+            output.push(currentCombo)
+            return
+        }
+        
+        if (left < n) 
+            addCombo(currentCombo + '(', left + 1, right)
+        
+        
+        if (right < left) 
+            addCombo(currentCombo + ')', left, right + 1)
+        
+    }
+    
+    output = []
+    addCombo('', 0, 0)
+    return output
+}
