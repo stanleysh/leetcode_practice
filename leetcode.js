@@ -125,3 +125,22 @@ function PhoneCombination(digits) {
     add_current_num("", digits);
     return output;
 }
+
+// Question 20, Valid parenthesis
+function ValidParenthesis(s) {
+    var stack = []
+    const parenthesis = {')':'(', '}':'{', ']':'['}
+    for (bracket in s) {
+        if (s[bracket] in parenthesis) {
+            console.log(stack[stack.length - 1])
+            if (stack.pop() === parenthesis[s[bracket]]) {
+                continue
+            } else {
+                return false
+            }
+        } else {
+            stack.push(s[bracket])
+        }
+    }
+    return (stack.length == 0)
+}
